@@ -1,0 +1,207 @@
+{
+    "coc-actions.hideCursor":                          false,
+    "coc-actions.showActionKind":                      true,
+    "coc.preferences.jumpCommand":                     "edit",
+    "coc.preferences.previewMaxHeight":                8,
+    "coc.preferences.enableFloatHighlight":            true,
+    "coc.preferences.snippetStatusText":               "Ⓢ ",
+    "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+    "coc.preferences.extensionUpdateCheck":            "daily",
+    "coc.preferences.formatOnSaveFiletypes": [
+        "css",
+        "html",
+        "javascript",
+        "python"
+    ],
+    "coc.preferences.rootPatterns": [
+        ".git",
+        ".hg",
+        ".projections.json",
+        ".root",
+        ".ccls"
+    ],
+
+    "diagnostic.errorSign":                "✖",
+    "diagnostic.warningSign":              "⚠",
+    "diagnostic.infoSign":                 "ℹ",
+    "diagnostic.hintSign":                 "➤",
+    "diagnostic.signOffset":               1,
+    "diagnostic.displayByAle":             false,
+    "diagnostic.refreshOnInsertMode":      false,
+    "diagnostic.refreshAfterSave":         false,
+    "diagnostic.checkCurrentLine":         true,
+    "diagnostic.virtualTextPrefix":        " ❯❯❯ ",
+    "diagnostic.virtualText":              true,
+    "diagnostic.maxWindowHeight":          6,
+    "diagnostic-languageserver.filetypes": {
+        "vim": "vint",
+        "email": "languagetool",
+        "markdown": ["write-good", "markdownlint"],
+        "sh": "shellcheck",
+        "elixir": ["mix_credo", "mix_credo_compile"],
+        "eelixir": ["mix_credo", "mix_credo_compile"],
+        "php": ["phpstan", "psalm"]
+    },
+    "diagnostic-languageserver.formatFiletypes": {
+        "elixir": "mix_format",
+        "eelixir": "mix_format"
+    },
+
+    "html.format.enable":                   true,
+    "javascript.referencesCodeLens.enable": true,
+    "javascript.showUnused":                true,
+    "javascript.suggest.names":             true,
+    "javascript.suggestionActions.enabled": true,
+
+    "json.format.enable": true,
+
+    "python.venvFolders": ["envs",".pyenv",".direnv", "~/.local/share/virtualenvs", "~/.cache/pypoetry/virtualenvs"],
+    "python.workspaceSymbols.exclusionPatterns": [],
+    "python.analysis.diagnosticEnabled":true,
+    "python.autoComplete.addBrackets": true,
+    "python.jediEnabled":              true,
+    "python.jediPath":                 "~/.local/lib/python3.8/site-packages/jedi",
+
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs":    ["--load-plugins", "pylint_django"],
+    "python.linting.mypyEnabled":   false,
+    "python.linting.mypyPath":      "~/.local/bin/mypy",
+    "python.sortImports.path":     "~/.local/bin/isort",
+    "python.formatting.provider":  "black",
+    "python.formatting.blackPath": "~/.local/bin/black",
+
+    "suggest.preferCompleteThanJumpPlaceholder": true,
+    "suggest.minTriggerInputLength":             2,
+    "suggest.numberSelect":                      false,
+    "suggest.detailMaxLength":                   60,
+    "suggest.noselect":                          true,
+    "suggest.echodocSupport":                    false,
+    "suggest.enablePreselect":                   false,
+    "suggest.triggerAfterInsertEnter":           false,
+    "suggest.timeout":                           5000,
+    "suggest.enablePreview":                     true,
+    "suggest.floatEnable":                       true,
+    "suggest.detailField":                       "preview",
+    "suggest.triggerCompletionWait":             100,
+    "suggest.completionItemKindLabels": {
+        "keyword":       "",
+        "variable":      "",
+        "value":         "",
+        "operator":      "ﲽ",
+        "function":      "⨕",
+        "reference":     "ﮧ",
+        "constant":      "",
+        "method":        "",
+        "struct":        "פּ",
+        "class":         "",
+        "interface":     "",
+        "text":          "♣",
+        "enum":          "",
+        "enumMember":    "",
+        "module":        "",
+        "color":         "",
+        "property":      "",
+        "field":         "",
+        "unit":          "",
+        "event":         "☯",
+        "file":          "",
+        "folder":        "",
+        "snippet":       "ﳅ",
+        "typeParameter": "",
+        "default":       ""
+    },
+
+    "git.changedSign.text":          "",
+    "git.changedSign.hlGroup":       "GitGutterChange",
+    "git.addedSign.text":            "",
+    "git.addedSign.hlGroup":         "GitGutterAdd",
+    "git.removedSign.text":          "",
+    "git.removedSign.hlGroup":       "GitGutterDelete",
+    "git.topRemovedSign.text":       "",
+    "git.topRemovedSign.hlGroup":    "GitGutterDelete",
+    "git.changeRemovedSign.text":    "",
+    "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+
+    "signature.enable":               true,
+    "signature.target":               "echo",
+    "signature.maxWindowHeight":      6,
+    "snippets.loadFromExtensions":    true,
+    "snippets.snipmate.enable":       false,
+    "snippets.ultisnips.directories": ["$HOME/.vim/ultisnips"],
+    "snippets.userSnippetsDirectory": "$HOME/.vim/ultisnips",
+    "snippets.priority":              100,
+
+    "list.previewSplitRight": true,
+    "list.source.gfiles.defaultOptions": ["--number-select"],
+    "session.directory": "~/.cache/sessions",
+
+    "yank.enableCompletion": false,
+
+    "pairs.disableLanguages": [],
+    "pairs.enableCharacters": ["(", "[", "{", "<", "'", "\"", "`"],
+
+        "languageserver": {
+            "ccls": {
+                "command": "ccls",
+                "filetypes": ["c", "cpp", "c++", "objc", "objcpp"],
+                "rootPatterns": [
+                    ".ccls",
+                    "compile_commands.json",
+                    ".git/",
+                    ".root/",
+                    ".hg/"
+                ],
+                "initializationOptions": {
+                    "cache": {
+                        "directory": "/tmp/ccls"
+                    }
+                }
+            },
+            "intelephense": {
+                "command": "intelephense",
+                "args": ["--stdio"],
+                "filetypes": ["php"],
+                "initializationOptions": {
+                    "storagePath": "/tmp/intelephense"
+                }
+            },
+            "bash": {
+                "command": "bash-language-server",
+                "args": ["start"],
+                "filetypes": ["sh"],
+                "ignoredRootPaths": ["~"]
+            },
+            "sql": {
+                "command": "sql-language-server",
+                "args": ["up", "--method", "stdio"],
+                "filetypes": ["sql", "mysql"]
+            },
+            "golang": {
+                "command": "gopls",
+                "rootPatterns": ["go.mod"],
+                "disableWorkspaceFolders": true,
+                "filetypes": ["go"]
+            },
+            "MPLS":{
+                "command": "dotnet",
+                "args":["exec","/home/trydying/Build/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer.dll"],
+                "filetypes": ["python"],
+                "initializationOptions": {
+                    "interpreter":
+                    {
+                        "properties":
+                        {
+                            "InterpreterPath": "/usr/bin/python3",
+                            "UseDefaultDatabase": true,
+                            "Version": "3.8.5"
+                        }
+                    }
+                },
+                "disableSnippetCompletion": true,
+                "disableCompletion": true,
+                "disableWorkspaceFolders": true
+            }
+
+        }
+    }

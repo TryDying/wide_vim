@@ -1,0 +1,293 @@
+set nocompatible
+filetype plugin indent on
+
+runtime ftplugin/man.vim
+set runtimepath+=~/.vim/bundle
+
+set cursorline cursorcolumn
+set noeb vb t_vb=   " 关闭响铃
+let mapleader = ","
+set hidden
+set backspace=2   " Backspace deletes like most programs in insert mode
+set nobackup
+set nowritebackup
+set noswapfile
+set history=500
+set ruler         " show the cursor position all the time
+set showcmd       " display incomplete commands
+set incsearch     " do incremental searching
+set laststatus=2  " Always display the status line
+set autowrite     " Automatically :write before running commands
+set confirm       " Need confrimation while exit
+set fileencodings=utf-8,gb18030,gbk,big5
+set fdm=indent
+set fdl=99
+set ignorecase
+set smartcase
+set hlsearch
+set mouse=a
+set guifont=Monaco\ 13
+set tabstop=4
+set shiftwidth=4
+set shiftround
+set expandtab
+set termguicolors
+set t_Co=256
+colorscheme tender
+
+set textwidth=80
+set colorcolumn=+1
+set number
+set numberwidth=5
+set splitbelow
+set splitright
+set timeoutlen=200
+set guioptions-=T
+set guioptions-=L
+set autochdir
+set tags+=./.git/tags
+" set ssop=blank,buffers,curdir,folds,help,options
+""""""""""""""
+"  Map Move  "
+""""""""""""""
+
+imap <c-h> <bs>
+noremap 0 ^
+noremap ^ 0
+inoremap jf  <esc>l
+inoremap <m-q> <esc>l
+nnoremap <m-q> <esc>
+
+imap <C-a> <C-o>I
+imap <m-e> <C-o>A
+
+" INSERT MODE MOTION
+inoremap <M-f> <esc>ea
+inoremap <M-b> <C-o>b
+inoremap <M-o> <C-o>o
+inoremap <M-O> <C-o>O
+inoremap <M-k> <C-o>k
+inoremap <M-j> <C-o>j
+inoremap <M-l> <C-o>l
+inoremap <M-h> <C-o>h
+
+tnoremap <m-Q> <c-\><c-n>:q!<cr>
+nnoremap <m-Q> <c-\><c-n>:q!<cr>
+tnoremap <m-J> <c-\><c-n><c-w>j
+tnoremap <m-K> <c-\><c-n><c-w>k
+tnoremap <m-L> <c-\><c-n><c-w>l
+tnoremap <m-H> <c-\><c-n><c-w>h
+nnoremap <m-J> <c-\><c-n><c-w>j
+nnoremap <m-K> <c-\><c-n><c-w>k
+nnoremap <m-L> <c-\><c-n><c-w>l
+nnoremap <m-H> <c-\><c-n><c-w>h
+
+nnoremap <c-x> :q<CR>
+
+inoremap <C-a> <C-o>I
+inoremap <C-l> <C-o>x
+
+nmap -hl :nohlsearch<cr>
+nmap +hl :set hlsearch<cr>
+
+" 方向键切换窗口
+nmap <left> <c-w>h
+nmap <right> <c-w>l
+nmap <down> <c-w>j
+nmap <up> <c-w>k
+
+
+" tab
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+map K :tabnext<cr>
+map J :tabprev<cr>
+nmap <leader>ta :Tab<space>/
+xmap <leader>ta :Tab<space>/
+
+let g:last_active_tab = 1
+nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
+autocmd TabLeave * let g:last_active_tab = tabpagenr()
+nnoremap <C-t> :tabnew<cr>
+inoremap <C-t> <ESC>:tabnew<CR>
+
+nmap <F3> :Autoformat<CR>
+vmap <F3> :Autoformat<CR>
+nmap <leader>rw :rewind<cr>
+map <leader><space> :FixWhitespace<cr>
+nnoremap <leader>` <c-^>
+nmap H :Man <cword><cr>
+if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
+    syntax on
+endif
+
+" Treat <li> and <p> tags like the block tags they are
+let g:html_indent_tags = 'li\|p'
+autocmd Syntax javascript set syntax=jquery " JQuery syntax support
+set matchpairs+=<:>
+
+
+"For special filetype
+augroup vimrcEx
+    autocmd!
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it for commit messages, when the position is invalid, or when
+    " inside an event handler (happens when dropping a file on gvim).
+    autocmd BufReadPost *
+                \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+                \   exe "normal g`\"" |
+                \ endif
+    " Cucumber navigation commands
+    autocmd User Rails Rnavcommand step features/step_definitions -glob=**/* -suffix=_steps.rb
+    autocmd User Rails Rnavcommand config config -glob=**/* -suffix=.rb -default=routes
+    " " Set syntax highlighting for specific file types
+    " autocmd BufRead,BufNewFile Appraisals set filetype=ruby
+    " autocmd BufRead,BufNewFile *.md set filetype=markdown
+    " Enable spellchecking for Markdown
+    autocmd FileType markdown setlocal spell
+    " Automatically wrap at 80 characters for Markdown
+    autocmd BufRead,BufNewFile *.md setlocal textwidth=0
+augroup END
+
+au BufNewFile,BufRead *.js,*.html,*.css setlocal
+            \ softtabstop=2
+            \ tabstop=2
+            \ shiftwidth=2
+            \ textwidth=0
+
+
+" quickfix toggle
+nnoremap <F9> :call Location_toggle()<cr>
+nnoremap <F10> :call ToggleQf()<cr>
+
+function! ToggleQf()
+    for buffer in tabpagebuflist()
+        if bufname(buffer) == ''
+            " then it should be the quickfix window
+            cclose
+            return
+        endif
+    endfor
+
+    copen 8
+endfunction
+
+function! s:BufferCount() abort
+    return len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+endfunction
+function! Location_toggle()
+    let buffer_count_before = s:BufferCount()
+    silent! lclose
+    silent! lclose
+
+    if s:BufferCount() == buffer_count_before
+        lopen 8
+    endif
+endfunction
+
+
+
+
+" Configure markdown
+let g:vim_markdown_folding_disable = 0
+let g:vim_markdown_math = 1 "支持LaTex math"
+set conceallevel=2
+
+if(has('nvim'))
+    " let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+    set clipboard+=unnamedplus
+    autocmd TermOpen * setlocal conceallevel=0 colorcolumn=0 nonu
+    " autocmd BufEnter term://*{gdb,zsh,ipython*} startinsert
+    autocmd BufEnter term://* startinsert
+
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+packadd termdebug
+let g:termdebug_wide = 1
+
+if has('nvim')
+    augroup TermDebug
+        autocmd!
+        autocmd TermOpen gdb nmap <c-l><c-d> :Clear<cr>
+        autocmd TermOpen gdb nmap <c-l><c-l> :Step<cr>
+        autocmd TermOpen gdb nmap <c-l><c-n> :Over<cr>
+        autocmd TermOpen gdb nmap <c-l><c-r> :Continue<cr>
+        autocmd TermOpen gdb nmap <c-l><c-f> :Finish<cr>
+        autocmd TermOpen gdb nmap <c-l><c-b> :Break<cr>
+        autocmd TermOpen gdb nmap <c-l><c-v> :Evaluate<cr>
+        autocmd TermOpen gdb vmap <c-l><c-v> :Evaluate<cr>
+        autocmd TermOpen gdb nmap <c-l><c-g> :Gdb<cr>
+        autocmd TermOpen gdb tnoremap <c-l><c-g> <c-\><c-n>:Gdb<cr>
+    augroup end
+else
+    augroup TermDebug
+        autocmd!
+        autocmd TerminalOpen gdb nmap <c-l><c-d> :Clear<cr>
+        autocmd TerminalOpen gdb nmap <c-l><c-l> :Step<cr>
+        autocmd TerminalOpen gdb nmap <c-l><c-n> :Over<cr>
+        autocmd TerminalOpen gdb nmap <c-l><c-r> :Continue<cr>
+        autocmd TerminalOpen gdb nmap <c-l><c-f> :Finish<cr>
+        autocmd TerminalOpen gdb nmap <c-l><c-b> :Break<cr>
+        autocmd TerminalOpen gdb nmap <c-l><c-v> :Evaluate<cr>
+        autocmd TerminalOpen gdb vmap <c-l><c-v> :Evaluate<cr>
+        autocmd TerminalOpen gdb nmap <c-l><c-g> :Gdb<cr>
+        autocmd TerminalOpen gdb tnoremap <c-l><c-g> <c-\><c-n>:Gdb<cr>
+    augroup end
+
+endif
+
+"hi debugPC term=reverse ctermbg=darkblue guibg=darkblue
+"hi debugBreakpoint term=reverse ctermbg=red guibg=red
+
+
+" let g:clang_c_options = '-std=gnu11'
+" let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
+let g:clang_library_path = '/usr/lib/libclang.so'
+let g:clang_complete = 0 "automatically selects the first entry in the popup menu
+let g:clang_complete_auto = 0
+let g:clang_close_preview = 1
+let g:clang_auto_select = 0
+set completefunc=syntaxcomplete#Complete
+set completeopt=longest,menuone
+
+let g:clang_jumpto_back_key = "<C-O>"
+
+let g:clang_snippets=1
+let g:clang_snippets_engine="ultisnips"
+let g:clang_complete_optional_args_in_snippets = 1
+let g:clang_trailing_placeholder = 1
+
+
+
+let g:AutoPairsMapCR = 0
+imap <silent><CR> <CR><Plug>AutoPairsReturn
+let g:SuperTabDefaultCompletionType = "<c-x><c-u>"
+let g:SuperTabContextDefaultCompletionType='<c-n>'
+
+if has('nvim')
+    let g:UltiSnipsExpandTrigger       = "<c-space>"
+else
+    let g:UltiSnipsExpandTrigger       = "<NUL>"
+endif
+
+let g:UltiSnipsListSnippets        = "<c-j>"
+let g:UltiSnipsJumpForwardTrigger  = "<c-e>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
+let g:UltiSnipsEditSplit           = "horizontal"
+let g:UltiSnipsSnippetDirectories  = ["ultisnips"]
+
+" snips
+let g:snips_author = 'trydying'
+let g:snips_email = 'trydying@mail.ustc.edu.cn'
+let g:snips_github = 'https://github.com/trydying'
+
