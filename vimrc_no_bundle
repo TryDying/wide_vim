@@ -45,7 +45,7 @@ set timeoutlen=200
 set guioptions-=T
 set guioptions-=L
 set autochdir
-set tags+=./.git/tags
+set tags=./.tags;,.tags
 " set ssop=blank,buffers,curdir,folds,help,options
 """"""""""""""
 "  Map Move  "

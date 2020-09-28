@@ -24,6 +24,24 @@ snippet down "Down (down)"
 &#x2193;
 endsnippet
 
+snippet if "{%if%} {%endif%}" b
+{% if ${1:conditon} %}
+$2
+{% endif %}
+$0
+endsnippet
+
+snippet for "{%for%} {%endfor%}" b
+{% for ${1:value} in ${2:iterable} %}
+${3:somecode}
+{% endfor %}
+$0
+endsnippet
+
+snippet block  "{%block%}"
+{% block ${1:content} %} ${2:somecodes}{% endblock %}
+endsnippet
+
 snippet enter "Enter (enter)"
 &#x2305;
 endsnippet
@@ -109,8 +127,8 @@ snippet br "<br>" w
 <br>$1</br>
 endsnippet
 
-snippet button "<button>"
-<button>$1</button>
+snippet button "<button>" w
+<button $1>$2</button>
 endsnippet
 
 snippet caption "<caption>"
@@ -297,7 +315,7 @@ snippet img "<img>"
 <img src="$1" alt="$2">
 endsnippet
 
-snippet input "Input with Label" w
+snippet inputl "Input with Label" w
 <label for="${2:${1/[[:alpha:]]+|( )/(?1:_:\L$0)/g}}">$1</label><input type="${3:text/submit/hidden/button}" name="${4:$2}" value="$5"${6: id="${7:$2}"}`!p x(snip)`>
 endsnippet
 
@@ -386,7 +404,7 @@ snippet option "Option" w
 endsnippet
 
 snippet p "paragraph" w
-<p>${0:${VISUAL}}</p>
+<p $1>${0:${VISUAL}}</p>
 endsnippet
 
 snippet picture "<picture>"

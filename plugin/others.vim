@@ -9,7 +9,7 @@ augroup vimrcEx
     autocmd User Rails Rnavcommand step features/step_definitions -glob=**/* -suffix=_steps.rb
     autocmd User Rails Rnavcommand config config -glob=**/* -suffix=.rb -default=routes
     autocmd FileType python,markdown setlocal textwidth=0
-    autocmd BufNewFile,BufRead *.js,*.html,*.css setlocal
+    autocmd BufNewFile,BufRead *.js,*.html,*.css,*.json setlocal
                 \ softtabstop=2
                 \ tabstop=2
                 \ shiftwidth=2
@@ -130,20 +130,6 @@ if !empty(glob('~/.vim/bundle/vim-terminal-help/plugin/terminal_help.vim'))
     let g:terminal_height = 12
 endif
 
-" Skywind Preview
-if !empty(glob('~/.vim/bundle/vim-preview/plugin/preview.vim'))
-    autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-    autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
-
-    noremap  <m-u>      :PreviewScroll           -1<cr>
-    noremap  <m-d>      :PreviewScroll           +1<cr>
-    inoremap <m-u>      <c-\><c-o>:PreviewScroll -1<cr>
-    inoremap <m-d>      <c-\><c-o>:PreviewScroll +1<cr>
-    noremap  <c-w><c-]> :PreviewSignature!<cr>
-    noremap  <c-w>t     :PreviewGoto             tabe<cr>
-    noremap  <C-]>      :PreviewTag<cr>
-    noremap  <C-\>      :PreviewClose<cr>
-endif
 
 " Vimwiki
 " need pip install vimwiki-markdown

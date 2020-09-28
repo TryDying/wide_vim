@@ -4,20 +4,28 @@ help() {
     echo "-a install all plugins"
     echo "-s install some useful plugins"
     echo "-n not use plugin manager"
+    echo "-d copy all configs, not install plug"
 }
 
 install_all() {
     cp -u $PWD/vimrc $VIM/vimrc
     echo "ccls"
-    cp -u $PWD/ccls $VIM/ccls
     cp -u $PWD/coc-settings.json $VIM/coc-settings.json
-    cp -au $PWD/vimspector-config $VIM/
+    cp -au $PWD/config $VIM/
     ln -sf $VIM/vimrc $VIM/init.vim
     echo "Install Plugins"
     vim -u $HOME/.vim/vimrc +PlugInstall! +qall!
     echo "OK"
 }
 
+config_without_install() {
+    cp -u $PWD/vimrc $VIM/vimrc
+    echo "ccls"
+    cp -u $PWD/coc-settings.json $VIM/coc-settings.json
+    cp -au $PWD/config $VIM/
+    ln -sf $VIM/vimrc $VIM/init.vim
+    echo "OK"
+}
 
 install_simple(){
     cp -u $PWD/vimrc_simple $VIM/vimrc
@@ -35,8 +43,8 @@ install_no_bundle(){
     cp -u $PWD/vimrc_no_bundle $VIM/vimrc
     ln -sf $VIM/vimrc $VIM/init.vim
     cp -u $PWD/clang_complete $VIM/clang_complete
-    # echo "Install Plugins"
-    # tar xf $PWD/vim_no_bundle.tgz -C $VIM/
+    echo "Install Plugins"
+    tar xf $PWD/vim_no_bundle.tgz -C $VIM/
     echo "OK"
 
 }
@@ -62,7 +70,7 @@ begin(){
     cp -au $PWD/ultisnips $VIM/
 }
 
-while getopts "ansh" opt;
+while getopts "anshd" opt;
 do
     case $opt in
         a)
@@ -80,6 +88,12 @@ do
         n)
             begin
             install_no_bundle
+            exit 1
+            ;;
+        d)
+            begin
+            plug
+            config_without_install
             exit 1
             ;;
         h)

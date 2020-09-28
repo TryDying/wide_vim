@@ -24,6 +24,7 @@ if !empty(glob('~/.vim/bundle/vim-easymotion/plugin/EasyMotion.vim'))
         nnoremap <m-E> :call EasyMotion_Coc_NAction("E")<cr>
         nnoremap <m-W> :call EasyMotion_Coc_NAction("W")<cr>
         nnoremap <m-B> :call EasyMotion_Coc_NAction("B")<cr>
+        nnoremap <space>jj :call EasyMotion_Coc_NAction("S")<cr>
         " visual
         vnoremap <m-j> <esc>:call EasyMotion_Coc_VAction("j")<cr>
         vnoremap <m-k> <esc>:call EasyMotion_Coc_VAction("k")<cr>
@@ -58,6 +59,7 @@ if !empty(glob('~/.vim/bundle/vim-easymotion/plugin/EasyMotion.vim'))
         nunmap <m-E>
         nunmap <m-W>
         nunmap <m-B>
+        nunmap <space>jj
         " visua
         vunmap <m-j>
         vunmap <m-k>
@@ -84,10 +86,12 @@ if !empty(glob('~/.vim/bundle/vim-easymotion/plugin/EasyMotion.vim'))
             call EasyMotion#E(0,0)
         elseif a:fn ==# 's'
             call EasyMotion#S(2,0,2)
+        elseif a:fn ==# 'S'
+            call EasyMotion#S(1,0,2)
         elseif a:fn ==# 'f'
-            call EasyMotion#S(2,0,0)
+            call EasyMotion#S(1,0,0)
         elseif a:fn ==# 'F'
-            call EasyMotion#S(2,0,1)
+            call EasyMotion#S(1,0,1)
         elseif a:fn ==# 'l'
             call EasyMotion#overwin#line()
         elseif a:fn ==# 'j'
@@ -117,9 +121,9 @@ if !empty(glob('~/.vim/bundle/vim-easymotion/plugin/EasyMotion.vim'))
         elseif a:fn ==# 's'
             call EasyMotion#S(2,1,2)
         elseif a:fn ==# 'f'
-            call EasyMotion#S(2,1,0)
+            call EasyMotion#S(1,1,0)
         elseif a:fn ==# 'F'
-            call EasyMotion#S(2,1,1)
+            call EasyMotion#S(1,1,1)
         elseif a:fn ==# 'j'
             call EasyMotion#JK(1,0)
         elseif a:fn ==# 'k'

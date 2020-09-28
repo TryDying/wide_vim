@@ -24,14 +24,13 @@ if !empty(glob('~/.vim/bundle/ale/plugin/ale.vim'))
     hi! SpellCap gui=undercurl guisp=blue
     hi! SpellRare gui=undercurl guisp=magenta
 
-    nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-    nmap <silent> <C-j> <Plug>(ale_next_wrap)
+    " nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+    " nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
     " " 启用某种语法检查
-    if empty(glob('~/.vim/bundle/coc.nvim/plugin/coc.vim'))
-        let g:ale_linters = {'c':'clang'}
-        let g:ale_linters = {'c++':'clang++'}
-    endif
+    let g:ale_linters = {
+                \ 'python':['pylint'],
+                \ }
 
     let g:ale_pattern_options = {
                 \   '.*\.json$': {'ale_enabled': 0},

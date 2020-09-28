@@ -3,160 +3,52 @@ filetype off
 
 call plug#begin('~/.vim/bundle')
 
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'mattn/emmet-vim', {'for':'html'}
-Plug 'danro/rename.vim'
-Plug 'dense-analysis/ale'
+" Develop
+Plug 'mhinz/vim-signify' " show git diff
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-function', {'for':['c', 'cpp', 'vim', 'java']}
 Plug 'docunext/closetag.vim'  ,       { 'for': ['html', 'xml'] }
-Plug 'sheerun/vim-polyglot'
-Plug '~/.vim/bundle/vim-ctrlspace'
-Plug 'scrooloose/nerdcommenter'
-Plug 'mhinz/vim-signify'
+Plug 'machakann/vim-sandwich' "surround edit
+Plug 'tpope/vim-repeat'
+Plug 'dense-analysis/ale'
 Plug 'tpope/vim-fugitive'
-Plug 'rafi/awesome-vim-colorschemes'
-Plug 'vim-scripts/DoxygenToolkit.vim'
-Plug 'kshenoy/vim-signature'
 Plug 'Yggdroot/LeaderF'
-Plug 'MattesGroeger/vim-bookmarks'
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'Yggdroot/indentLine'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'jiangmiao/auto-pairs'
-Plug 'Lokaltog/vim-easymotion'
-Plug 'Chiel92/vim-autoformat'
-Plug 'godlygeek/tabular' "vim-easy-align 功能似乎不是很完善
-Plug 'junegunn/vim-easy-align'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'TryDying/gutentags_plus'
-Plug 'skywind3000/vim-preview'
-Plug 'SirVer/ultisnips'
-Plug 'skywind3000/quickmenu.vim'
-Plug 'tmhedberg/SimpylFold'
-Plug 'terryma/vim-expand-region'
 Plug 'xavierd/clang_complete'
 Plug 'ervandew/supertab'
 
+" Edit Support
+Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'danro/rename.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'unblevable/quick-scope'  " highlight f match in the line
+Plug 'Chiel92/vim-autoformat'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'godlygeek/tabular' "vim-easy-align 功能似乎不是很完善
+Plug 'junegunn/vim-easy-align'
+Plug 'terryma/vim-expand-region'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+
+" Filetype Syntax
+Plug 'mattn/emmet-vim', {'for':'html'}
+Plug 'sheerun/vim-polyglot'
+
+" UI
+Plug '~/.vim/bundle/vim-ctrlspace'
+Plug 'skywind3000/vim-preview'
+Plug 'skywind3000/quickmenu.vim'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'Yggdroot/indentLine'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'kshenoy/vim-signature'
+Plug 'kien/rainbow_parentheses.vim'
 
 
 call plug#end()
 filetype plugin indent on
-
 runtime ftplugin/man.vim
-
-set cursorline cursorcolumn
-set noeb vb t_vb=   " 关闭响铃
-let mapleader = ","
-set hidden
-set backspace=2   " Backspace deletes like most programs in insert mode
-set nobackup
-set nowritebackup
-set noswapfile
-set history=500
-set ruler         " show the cursor position all the time
-set showcmd       " display incomplete commands
-set incsearch     " do incremental searching
-set laststatus=2  " Always display the status line
-set autowrite     " Automatically :write before running commands
-set confirm       " Need confrimation while exit
-set fileencodings=utf-8,gb18030,gbk,big5
-set fdm=indent
-set fdl=99
-set ic
-set hlsearch
-set mouse=a
-set guifont=Monaco\ 12.5
-set tabstop=4
-set shiftwidth=4
-set shiftround
-set expandtab
-set t_Co=256
-set termguicolors
-colorscheme tender
-
-" highlight NonText guibg=#060606
-" highlight Folded  guibg=#0A0A0A guifg=#9090D0
-set textwidth=80
-set colorcolumn=+1
-set number
-set numberwidth=5
-set splitbelow
-set splitright
-set timeoutlen=200
-set guioptions-=T
-set guioptions-=L
-set autochdir
-set switchbuf+=usetab,newtab
-set tags=./.tags;,.tags
-
-"Maps move
-if has('nvim')
-    imap jf  <c-\><c-n>l
-    "tnoremap jf <c-\><c-n>
-    tnoremap <c-w><c-p> <c-\><c-n><c-w>p
-    tnoremap <c-w><c-l> <c-\><c-n><c-w>l
-    tnoremap <c-w><c-j> <c-\><c-n><c-w>j
-    tnoremap <c-w><c-k> <c-\><c-n><c-w>k
-    tnoremap <c-w><c-h> <c-\><c-n><c-w>h
-    tnoremap <c-w><c-x> <c-\><c-n>:q!<cr>
-else
-    imap jf  <ESC>l
-endif
-
-
-" inoremap <C-e> <C-o>A
-inoremap <C-a> <C-o>I
-inoremap <C-l> <C-o>x
-
-if has('nvim')
-    inoremap <M-f> <C-o>A
-    inoremap <M-l> <C-o>l
-    inoremap <M-k> <C-o>k
-    inoremap <M-j> <C-o>j
-    inoremap <M-h> <C-o>h
-    inoremap <M-o> <C-o>o
-    inoremap <M-O> <C-o>O
-endif
-
-nmap -hl :nohlsearch<cr>
-nmap +hl :set hlsearch<cr>
-
-nmap <left> <c-w>h
-nmap <right> <c-w>l
-nmap <down> <c-w>j
-nmap <up> <c-w>k
-
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-nnoremap <leader>w :w<CR>
-nnoremap <leader>q :q<CR>
-map K :tabnext<cr>
-map J :tabprev<cr>
-let g:last_active_tab = 1
-autocmd TabLeave * let g:last_active_tab = tabpagenr()
-nnoremap <C-t> :tabnew<cr>
-inoremap <C-t> <ESC>:tabnew<CR>
-
-"
-nmap <leader>rw :rewind<cr>
-nmap <F3> :Autoformat<CR>
-vmap <F3> :Autoformat<CR>
-nmap <F4> :ALEToggle<CR>
-nnoremap <leader>` <c-^>
-map <leader><space> :FixWhitespace<cr>
-nmap H :execute "tab Man " . expand("<cword>")<cr>
-if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
-    syntax on
-endif
 

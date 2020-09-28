@@ -1,0 +1,43 @@
+{
+    "adapters": {
+        "lldb-vscode": {
+            "variables": {
+                "LLVM": {
+                    "shell": "echo '/usr'"
+                }
+            },
+            "attach": {
+                "pidProperty": "pid",
+                "pidSelect": "ask"
+            },
+            "command": [
+                "${LLVM}/bin/lldb-vscode"
+            ],
+            "env": {
+                "LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY":
+                "NO"
+            },
+            "name":"lldb"
+        }
+    },
+    "configurations": {
+        "cpp:launch": {
+            "adapter": "lldb-vscode",
+            "configuration": {
+                "name": "cpp",
+                "type": "cppdbg",
+                "request": "launch",
+                "program": "${fileDirname}/${fileBasenameNoExtension}",
+                "args": ["*${kwargs}"],
+                "cwd": "${workspaceRoot}",
+                "environment": [],
+                "externalConsole": true,
+                "stopAtEntry": true,
+                "MIMode": "lldb",
+                "logging": {
+                    "engineLogging": false
+                }
+            }
+        }
+    }
+}

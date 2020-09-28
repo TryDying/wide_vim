@@ -16,8 +16,6 @@ if !empty(glob('~/.vim/bundle/vim-quickui/plugin/quickui.vim'))
                 \ [ "LeaderF &Function", 'LeaderfFunction ', 'Search function'],
                 \ [ "LeaderF &Mru", 'Leaderf mru --regexMode', 'Open recently accessed files'],
                 \ [ "LeaderF &Buffer", 'Leaderf buffer', 'List current buffers in leaderf'],
-                \ [ "LeaderF &Tag", 'LeaderfTag', 'List tag in tag files '],
-                \ [ "LeaderF &Rg", 'Leaderf rg', 'Leaderf Grep'],
                 \ ["--",],
                 \ [ "&Paps","!paps % | ps2pdf - %:r.pdf","Use paps to print pdf" ],
                 \ ["&VimwikiAll2HTML", "VimwikiAll2HTML",''],
@@ -35,16 +33,16 @@ if !empty(glob('~/.vim/bundle/vim-quickui/plugin/quickui.vim'))
                 \ [ "&Edit Snippets", 'CocCommand snippets.editSnippets ', ''],
                 \ ["--",],
                 \ ["Auto&Format", "Autoformat", "Autoformat"],
+                \ ["--",],
+                \ ["&CMakeLists", 'exec "normal ,ecc"', "Create CMakeLists.txt"],
+                \ ["CCLS&0", 'exec "normal ,ecl"', "Create .ccls file"],
                 \ ])
 
     call quickui#menu#install('&Symbol', [
-                \ [ "Find &Definition\t(GNU Global)", 'execute "GscopeFind g " . expand("<cword>")', ''],
-                \ [ "Find Declaration&0\t(GNU Global)", 'execute "GscopeFind a " . expand("<cword>")', ''],
-                \ [ "S&ymbol References\t(GNU Global)", 'execute "GscopeFind s " . expand("<cword>")', ''],
-                \ [ "Function &References\t(GNU Global)", 'execute "GscopeFind c " . expand("<cword>")', ''],
-                \ [ "&Find Symbol\t(GNU Global)", 'execute "GscopeFind e " . expand("<cword>")', ''],
-                \ [ "Jump &into Header\t(GNU Global)", 'execute "GscopeFind f " . expand("<cfile>")', ''],
-                \ [ "Jump &out Header\t(GNU Global)", 'execute "GscopeFind i " . expand("<cfile>")', ''],
+                \ [ "&Update Gtags\t(Leaderf)", 'Leaderf gtags --update', 'Generate&Update gtags'],
+                \ [ "Recall&0 Search\t(Leaderf)", 'Leaderf gtags --recall', ''],
+                \ [ "Remove Gtags\t(Leaderf)", 'Leaderf gtags --remove'],
+                \ [ "--", ],
                 \ [ "&Vdefi\t(Coc.nvim)", "call CocAction('jumpDefinition','vsplit')", ''],
                 \ [ "&Sdefi\t(Coc.nvim)", "call CocAction('jumpDefinition','split')", ''],
                 \ ])
@@ -53,7 +51,7 @@ if !empty(glob('~/.vim/bundle/vim-quickui/plugin/quickui.vim'))
                 \ ])
 
     call quickui#menu#install("&Debug", [
-                \ ["&EditSpectorConfig",'exec "normal ,te"','Edit Spector Config'],
+                \ ["&EditSpectorConfig",'exec "normal ,ecs"','Edit Spector Config'],
                 \ ["-"],
                 \ ["&Start",'call SetUpTerminal()','start or continue debug'],
                 \ ["List &BreakPoint",'call vimspector#ListBreakpoints()','ListBreakpoints'],
@@ -66,8 +64,14 @@ if !empty(glob('~/.vim/bundle/vim-quickui/plugin/quickui.vim'))
                 \ ])
 
     call quickui#menu#install("&Git", [
-                \ ["git &diff", 'Gvdiff', "use fugitive's Gvdiff on current document"],
-                \ ["git &status", 'Gstatus', "use fugitive's Gstatus on current document"],
+                \ ["git &diff", 'Gvdiff', "show file diff"],
+                \ ["git &status", 'Gstatus', "show git status"],
+                \ ["git &blame", 'Gblame', "show git blame"],
+                \ ["git lo&g ", 'Gclog', "show git log quickfix"],
+                \ ["git &commit", 'Gcommit', "show git commit"],
+                \ ["git &vsplit",'Gvsplit', "edit in temp file"],
+                \ ["git &read", 'Gread', "read from temp file"],
+                \ ["git &write",'Gw', "save"],
                 \ ])
 
 
@@ -82,10 +86,11 @@ if !empty(glob('~/.vim/bundle/vim-quickui/plugin/quickui.vim'))
                 \ ])
 
     call quickui#menu#install('&Plugin', [
-                \ ["&NERDTree\t<F5>", 'NERDTree', 'open nerdtree'],
-                \ ["&Tagbar\t<F6>", 'Vista', 'Start Vista'],
+                \ ["&NERDTree", 'NERDTree', 'open nerdtree'],
+                \ ["&Tagbar", 'Vista', 'Start Vista'],
                 \ ["-"],
-                \ [ "&Diagnostics", 'CocDiagnostics', ''],
+                \ [ "&Diagnostics", 'CocDiagnostics', 'CocDiagnostics List'],
+                \ [ "&ALEToggle", 'ALEToggle', 'ALEToggle'],
                 \ ["-"],
                 \ ["Display &Calendar", "CalendarT", "display a calender"],
                 \ ["--"],
@@ -134,6 +139,51 @@ if !empty(glob('~/.vim/bundle/vim-quickui/plugin/quickui.vim'))
     nnoremap <silent> <space><space> :call quickui#menu#open()<cr>
 
     nnoremap <silent>M :call quickui#tools#clever_context('k', g:context_menu_k, {})<cr>
+
+    """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    "                                function                                 "
+    """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+    function! s:read_ccls_into_buffer(template)
+        execute '0r ~/.config/nvim/config/ccls/'.a:template
+    endfunction
+    function! s:ccls_create_config()
+        if !filereadable('.ccls')
+            tabe .ccls | LoadCocCclsTemplate
+        else
+            tabe .ccls
+        endif
+    endfunction
+    command! -bang -nargs=* LoadCocCclsTemplate call fzf#run({
+                \   'source': 'ls -1 ~/.config/nvim/config/ccls',
+                \   'down': 10,
+                \   'sink': function('<sid>read_ccls_into_buffer')
+                \ })
+    noremap <leader>ecl :call <sid>ccls_create_config()<cr>
+
+    function! s:read_cmake_into_buffer(template)
+        execute '0r ~/.config/nvim/config/cmake/'.a:template
+    endfunction
+    function! s:cmake_create_config()
+        if !filereadable('CMakeLists.txt')
+            tabe CMakeLists.txt | LoadCMakeListsTemplate
+        else
+            tabe CMakeLists.txt
+        endif
+    endfunction
+    command! -bang -nargs=* LoadCMakeListsTemplate call fzf#run({
+                \   'source': 'ls -1 ~/.config/nvim/config/cmake',
+                \   'down': 10,
+                \   'sink': function('<sid>read_cmake_into_buffer')
+                \ })
+    noremap <leader>ecc :call <sid>cmake_create_config()<cr>
+
+    """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    "                               endfunction                               "
+    """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
 endif
 
 " Toggle List
@@ -207,11 +257,15 @@ if !empty(glob('~/.vim/bundle/vim-which-key/plugin/which_key.vim'))
     vnoremap <silent> <space><leader> :WhichKeyVisual '<space>'<CR>
 
     let g:which_key_map =  {}
-    let g:which_key_map.b = {
-                \ 'name': '+buffer',
+    let g:which_key_map.f = {
+                \ 'name': '+diff',
+                \ 'i'   : ['diffthis' , 'start diff mode'] ,
+                \ 'o'   : ['diffoff'  , 'stop diff mode']  ,
+                \ 'g'   : ['diffget'  , 'diff get']  ,
+                \ 'p'   : ['diffput'  , 'diff put']  ,
                 \ }
 
-    let g:which_key_map.f = { 'name' : '+file' }
+    " let g:which_key_map.f = { 'name' : '+file' }
 
 endif
 

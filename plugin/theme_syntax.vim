@@ -4,6 +4,7 @@ if !empty(glob('~/.vim/bundle/vim-airline/plugin/airline.vim'))
     if !exists('g:airline_symbols')
         let g:airline_symbols = {}
     endif
+
     let g:airline_powerline_fonts = 1 " 启用 powerline 字体
     let g:airline_theme='bubblegum'
     let g:airline_symbols.branch = ''

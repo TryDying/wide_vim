@@ -19,7 +19,8 @@ if !empty(glob('~/.vim/bundle/coc.nvim/plugin/coc.vim'))
                 \ 'coc-yank',
                 \ 'coc-lists',
                 \ 'coc-python',
-                \ 'coc-pairs'
+                \ 'coc-pairs',
+                \ 'coc-word',
                 \]
 
 
@@ -38,9 +39,9 @@ if !empty(glob('~/.vim/bundle/coc.nvim/plugin/coc.vim'))
     xmap <leader>fm  <Plug>(coc-format-selected)
     nmap <leader>fm  <Plug>(coc-format)
 
-    nmap <space>m  :CocCommand<space>
-    vmap <space>m  :CocCommand<space>
-    nmap <space>rn :CocCommand workspace.renameCurrentFile<cr>
+    nmap <space>cm  :CocCommand<space>
+    vmap <space>cm  :CocCommand<space>
+    nmap <leader>rn :CocCommand workspace.renameCurrentFile<cr>
 
     "Fix
     nmap <leader>fa  <Plug>(coc-fix-current)
@@ -50,22 +51,22 @@ if !empty(glob('~/.vim/bundle/coc.nvim/plugin/coc.vim'))
     nmap <silent> <c-k> <Plug>(coc-diagnostic-prev)
     nmap <silent> <c-j> <Plug>(coc-diagnostic-next)
 
-    nnoremap <silent><nowait> <space>d  :CocList --normal diagnostics<cr>
-    nnoremap <silent><nowait> <space>e  :CocList extensions<cr>
-    nnoremap <silent><nowait> <space>c  :CocList commands<cr>
-    nnoremap <silent><nowait> <space>o  :CocList outline<cr>
-    nnoremap <silent><nowait> <space>s  :CocList -I symbols<cr>
-    nnoremap <silent><nowait> <space>j  :CocNext<CR>
-    nnoremap <silent><nowait> <space>k  :CocPrev<CR>
-    nnoremap <silent><nowait> <space>p  :CocListResume<CR>
-    nnoremap <silent><nowait> <space>y  :CocList -A --normal yank<cr>
-
-    nnoremap <nowait><space>l  :<C-u>CocList<space>
+    nnoremap <silent><nowait> <space>cd  :CocList --normal diagnostics<cr>
+    nnoremap <silent><nowait> <space>ce  :CocList extensions<cr>
+    nnoremap <silent><nowait> <space>cc  :CocList commands<cr>
+    nnoremap <silent><nowait> <space>co  :CocList outline<cr>
+    nnoremap <silent><nowait> <space>cs  :CocList -I symbols<cr>
+    nnoremap <silent><nowait> <space>cp  :CocListResume<CR>
+    nnoremap <silent><nowait> <space>cy  :CocList -A --normal yank<cr>
+    nnoremap <silent><nowait> <space>cj  :CocNext<cr>
+    nnoremap <silent><nowait> <space>ck  :CocPrev<cr>
+    nnoremap <nowait><space>cl  :<C-u>CocList<space>
 
     " snippet
     let g:coc_snippet_next = '<c-e>'
     let g:coc_snippet_prev = '<c-b>'
-    " imap <C-e> <Plug>(coc-snippets-expand)
+
+    " imap <c-space> <Plug>(coc-snippets-expand-jump)
 
     " float windows scroll
     nnoremap <expr><C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
@@ -81,6 +82,7 @@ if !empty(glob('~/.vim/bundle/coc.nvim/plugin/coc.vim'))
         autocmd FileType tex let b:coc_pairs = [["$", "$"]]
         autocmd FileType markdown let b:coc_pairs_disabled = ['`']
     augroup end
+
 
     " Status line
     let g:airline#extensions#coc#enabled = 1
@@ -115,6 +117,9 @@ if !empty(glob('~/.vim/bundle/coc.nvim/plugin/coc.vim'))
                 \ coc#refresh()
     inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+    " Enhanced <cr>
+  	inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+				\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
     inoremap <silent><expr> <c-space> pumvisible() ? coc#_select_confirm() :
                 \"\<C-g>u"
 

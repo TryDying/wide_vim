@@ -133,7 +133,7 @@ if !empty(glob('~/.vim/bundle/vimspector/plugin/vimspector.vim'))
     let g:vimspector_code_minwidth     = 90
 
     function! s:read_template_into_buffer(template)
-        execute '0r ~/.config/nvim/vimspector-config/'.a:template
+        execute '0r ~/.config/nvim/config/vimspector/'.a:template
     endfunction
     function! s:vimspector_create_config()
         if !filereadable('.vimspector.json')
@@ -143,11 +143,11 @@ if !empty(glob('~/.vim/bundle/vimspector/plugin/vimspector.vim'))
         endif
     endfunction
     command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
-                \   'source': 'ls -1 ~/.config/nvim/vimspector-config',
+                \   'source': 'ls -1 ~/.config/nvim/config/vimspector',
                 \   'down': 10,
                 \   'sink': function('<sid>read_template_into_buffer')
                 \ })
-    noremap <leader>te :call <sid>vimspector_create_config()<cr>
+    noremap <leader>ecs :call <sid>vimspector_create_config()<cr>
     sign define vimspectorBP text=☛ texthl=Normal
     sign define vimspectorBPDisabled text=☞ texthl=Normal
 
@@ -198,8 +198,8 @@ if !empty(glob('~/.vim/bundle/vimspector/plugin/vimspector.vim'))
         nmap <m-n> <Plug>VimspectorStepOver
         nmap <m-i> <Plug>VimspectorStepInto
         nmap <m-o> <Plug>VimspectorStepOut
-        nmap <m-w> :VimspectorWatch
-        nmap <m-e> :VimspectorEval
+        nmap <m-w> :VimspectorWatch<space>
+        nmap <m-e> :VimspectorEval<space>
     endfunction
 
 endif

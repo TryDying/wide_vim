@@ -35,7 +35,7 @@ if !empty(glob('~/.vim/bundle/ultisnips/plugin/UltiSnips.vim'))
         " let g:UltiSnipsExpandTrigger   = "<c-e>"
         let g:UltiSnipsExpandTrigger   = "<NUL>"
     endif
-    let g:UltiSnipsListSnippets        = "<c-j>"
+    " let g:UltiSnipsListSnippets        = "<c-j>"
     let g:UltiSnipsJumpForwardTrigger  = "<c-e>"
     let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
     let g:UltiSnipsEditSplit           = "horizontal"
