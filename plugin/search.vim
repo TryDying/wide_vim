@@ -4,7 +4,8 @@ if !empty(glob('~/.vim/bundle/LeaderF/plugin/leaderf.vim'))
     let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
     let g:Lf_PreviewInPopup = 1
 
-    let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git', '.ccls']
+    " let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git', '.ccls']
+    let g:Lf_RootMarkers = ['.root']
     let g:Lf_WorkingDirectoryMode = 'Ac'
     let g:Lf_GtagsAutoGenerate = 0
     let g:Lf_WindowHeight = 0.30

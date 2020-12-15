@@ -47,8 +47,9 @@ if !empty(glob('~/.vim/bundle/vim-ctrlspace/plugin/ctrlspace.vim'))
         let g:CtrlSpaceDefaultMappingKey = "<C-space> "
     endif
     " ctrlspace rootdir mark
-    let g:CtrlSpaceProjectRootMarkers = ['.root', '.svn', '.git', '.hg','.ccls',
-                \'.project','.clang_complete']
+    " let g:CtrlSpaceProjectRootMarkers = ['.root', '.svn', '.git', '.hg','.ccls',
+    "             \'.project','.clang_complete']
+    let g:CtrlSpaceProjectRootMarkers = ['.root']
 endif
 
 

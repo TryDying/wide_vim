@@ -30,6 +30,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'markonm/traces.vim'  " View replace
 Plug 'honza/vim-snippets'
 Plug 'sirver/ultisnips'
+Plug 'lilydjwg/colorizer' " Show color-codes
 
 " Filetype Syntax
 Plug 'sheerun/vim-polyglot'
@@ -58,6 +59,7 @@ Plug 'junegunn/vim-peekaboo'        " view registers
 Plug 'ryanoasis/vim-devicons'       " view contents of registers
 Plug 'kshenoy/vim-signature'        " show marks
 Plug 'kien/rainbow_parentheses.vim' " enhance pairs's color
+Plug 'mhinz/vim-startify'
 
 " vimwiki,个人笔记;calendar管理
 Plug 'vimwiki/vimwiki'

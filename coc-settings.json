@@ -14,9 +14,6 @@
         "python"
     ],
     "coc.preferences.rootPatterns": [
-        ".git",
-        ".hg",
-        ".projections.json",
         ".root",
         ".ccls"
     ],
@@ -166,10 +163,7 @@
                 "filetypes": ["c", "cpp", "c++", "objc", "objcpp"],
                 "rootPatterns": [
                     ".ccls",
-                    "compile_commands.json",
-                    ".git",
-                    ".root",
-                    ".hg"
+                    ".root"
                 ],
                 "initializationOptions": {
                     "cache": {
